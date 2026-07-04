@@ -1,0 +1,8 @@
+# Declare where your packages live
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  '@prisma/engines': false
+  esbuild: false
+  prisma: false
