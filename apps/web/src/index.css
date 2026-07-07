@@ -1,1 +1,152 @@
 @import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Dymostride design tokens
+ *
+ * Everything visual is centralised here. Swap these values (or drop in
+ * a new @theme) to re-skin every component in the library at once —
+ * this is what makes the kit reusable across future projects.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Surfaces */
+  --color-bg: #0a0a0f; /* app background */
+  --color-surface: #15141d; /* cards, panels, inputs */
+  --color-surface-hover: #1b1a25;
+
+  /* Borders */
+  --color-line: #23222e; /* default hairline border */
+  --color-line-strong: #3a3947; /* emphasised border */
+
+  /* Brand green (the grid) */
+  --color-brand: #4ade80;
+  --color-brand-strong: #22c55e;
+  --color-brand-ink: #052e16; /* text/icon on top of brand */
+  --color-brand-soft: #bbf7d0;
+  --color-brand-softer: #86efac;
+
+  /* Text ramp (lightest → faintest) */
+  --color-heading: #fafafc;
+  --color-title: #f5f5f7;
+  --color-body: #ededf2;
+  --color-body-soft: #d4d4dc;
+  --color-muted: #a9a9b8;
+  --color-muted-2: #8b8b98;
+  --color-faint: #6b6b78;
+
+  /* Accents (avatars, category chips, AI coach) */
+  --color-violet: #a78bfa;
+  --color-violet-strong: #8b5cf6;
+  --color-fuchsia: #e879f9;
+  --color-cyan: #22d3ee;
+  --color-amber: #fbbf24;
+  --color-orange: #f59e0b;
+  --color-pink: #f472b6;
+
+  /* Typography */
+  --font-sans:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+
+  /* Motion */
+  --animate-fade-up: fade-up 0.4s ease-out both;
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 2.6s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      box-shadow: 0 8px 24px -6px rgba(74, 222, 128, 0.45);
+    }
+    50% {
+      box-shadow: 0 10px 34px -4px rgba(74, 222, 128, 0.85);
+    }
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    /* Solid base; the ambient glow + heatmap live in <HeatmapBackground>. */
+    background: var(--color-bg);
+    color: var(--color-body);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Respect users who prefer less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  a {
+    color: var(--color-brand-softer);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-brand-soft);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-faint);
+  }
+
+  /* Scrollbars (WebKit) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 6px;
+    border: 2px solid var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-line-strong);
+  }
+}
