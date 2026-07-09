@@ -8,15 +8,15 @@ are **binding**.
 
 ## Stack
 
-| Concern      | Tool                                                                    |
-| ------------ | ----------------------------------------------------------------------- |
-| HTTP server  | **Fastify `5`**                                                         |
-| ORM          | **Prisma `7`** with the **`@prisma/adapter-pg` driver adapter**         |
-| Database     | **PostgreSQL**                                                          |
-| Language     | **TypeScript `5.9`**, `strict: true`                                    |
-| Module system| **ESM** (`"type": "module"`, `NodeNext` resolution)                     |
-| Dev runner   | **tsx** (`tsx watch`); build via `tsc`                                  |
-| Validation   | **Fastify JSON Schema** (per-route `schema`) — see rules below          |
+| Concern       | Tool                                                            |
+| ------------- | --------------------------------------------------------------- |
+| HTTP server   | **Fastify `5`**                                                 |
+| ORM           | **Prisma `7`** with the **`@prisma/adapter-pg` driver adapter** |
+| Database      | **PostgreSQL**                                                  |
+| Language      | **TypeScript `5.9`**, `strict: true`                            |
+| Module system | **ESM** (`"type": "module"`, `NodeNext` resolution)             |
+| Dev runner    | **tsx** (`tsx watch`); build via `tsc`                          |
+| Validation    | **Fastify JSON Schema** (per-route `schema`) — see rules below  |
 
 ### Commands
 
@@ -73,7 +73,7 @@ transport   HTTP glue     business      data access
 - Exposes intent-named methods (`findAll`, `create`, `findByEmail`) returning domain data;
   callers never see Prisma query objects.
 - **Migration target:** the current [`modules/user/user.service.ts`](src/modules/user/user.service.ts)
-  calls `this.prisma.user.*` directly. That is the *old* shape. New/edited modules MUST extract
+  calls `this.prisma.user.*` directly. That is the _old_ shape. New/edited modules MUST extract
   a `user.repository.ts` that holds the Prisma calls, and slim the service to depend on it:
 
   ```ts
@@ -83,8 +83,12 @@ transport   HTTP glue     business      data access
 
   export class UserRepository {
     constructor(private readonly prisma: PrismaClient) {}
-    findAll() { return this.prisma.user.findMany(); }
-    create(data: CreateUserRequest) { return this.prisma.user.create({ data }); }
+    findAll() {
+      return this.prisma.user.findMany();
+    }
+    create(data: CreateUserRequest) {
+      return this.prisma.user.create({ data });
+    }
   }
 
   // user.service.ts — business logic only, no Prisma
@@ -93,8 +97,12 @@ transport   HTTP glue     business      data access
 
   export class UserService {
     constructor(private readonly users: UserRepository) {}
-    findAll() { return this.users.findAll(); }
-    create(data: CreateUserRequest) { return this.users.create(data); }
+    findAll() {
+      return this.users.findAll();
+    }
+    create(data: CreateUserRequest) {
+      return this.users.create(data);
+    }
   }
   ```
 
