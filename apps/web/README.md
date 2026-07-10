@@ -1,75 +1,61 @@
-# React + TypeScript + Vite
+# @repo/web — Dymostride (Web)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend for **Dymostride**, a habit tracker built on momentum. This package is the
+public-facing site: a React + Vite single-page app.
 
-Currently, two official plugins are available:
+> **Status: early development.**
+> Right now this is a **coming-soon landing page** with a waitlist sign-up form. The form is
+> UI-only — it validates the email and shows a confirmation, but does **not** submit anywhere
+> yet. There is no product behind it; that is what we are building.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+For the full project overview, the complete tech stack, and how the monorepo fits together,
+see the [root README](../../README.md).
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech
 
-## Expanding the ESLint configuration
+- **React 19** + **TypeScript**
+- **Vite 8** (dev server + build)
+- **Tailwind CSS v4** (CSS-first, no config file — tokens live in `src/index.css`)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Run everything from the **repository root** with pnpm.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# install once, from the repo root
+pnpm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# start the dev server → http://localhost:5173
+pnpm --filter @repo/web dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Other commands:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+pnpm --filter @repo/web build      # type-check + production build
+pnpm --filter @repo/web lint       # lint
+pnpm --filter @repo/web preview    # preview the production build
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project structure
 
 ```
+src/
+├── components/
+│   ├── ui/          Reusable primitives (Button, Card, Badge, Logo)
+│   ├── sections/    Page sections (Hero, Waitlist)
+│   └── *.tsx        Layout (Navbar, Footer, HeatmapBackground)
+├── constants/       Design constants and shared ids
+├── lib/             Helpers — cn(), canvas animation math
+├── App.tsx          Composes the single page
+└── index.css        Tailwind v4 theme + design tokens
+```
+
+The site is intentionally a **single, router-less page** while the product is pre-launch.
+
+## Contributing
+
+This package has house rules for components, styling, and state. Please read
+[`CLAUDE.md`](CLAUDE.md) before making changes.
