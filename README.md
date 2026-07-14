@@ -304,6 +304,8 @@ In plain English: you are free to use, modify, self-host, and redistribute Dymos
 
 Questions, ideas, or bug reports → [open an issue](https://github.com/DymoStride/dymostride-monorepo/issues).
 
+Chat with the community or say hi → [join our Discord](https://discord.gg/6Rswqhkj7W).
+
 <div align="center">
 <sub>Built on momentum.</sub>
 </div>
