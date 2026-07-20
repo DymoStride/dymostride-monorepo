@@ -1,10 +1,7 @@
 import { Logo } from "./ui/Logo";
 
-/** Contact email shown in the footer. Swap for the real inbox before launch. */
-const CONTACT_EMAIL = "b.kasan@hotmail.com";
-const CONTACT_EMAIL_PLACEHOLDER = "hello@dymostride.com";
+const CONTACT_EMAIL = "hello@dymostride.com";
 
-/** Basic marketing footer: logo, copyright and a contact link. */
 const Footer = () => {
   const year = new Date().getFullYear();
 
@@ -21,7 +18,7 @@ const Footer = () => {
           href={`mailto:${CONTACT_EMAIL}`}
           className="text-[13px] font-medium text-muted transition-colors hover:text-body"
         >
-          {CONTACT_EMAIL_PLACEHOLDER}
+          {CONTACT_EMAIL}
         </a>
       </div>
     </footer>
